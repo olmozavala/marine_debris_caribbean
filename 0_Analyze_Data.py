@@ -1,5 +1,5 @@
 from config.MainConfig import get_config
-from config.params import common
+from config.params import globalmodel
 from os.path import join
 import geoviews as gv
 import geoviews.feature as gf
