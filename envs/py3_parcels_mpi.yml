@@ -1,0 +1,14 @@
+name: geoeoas
+channels:
+    - conda-forge
+    - nodefaults
+    - anaconda
+dependencies:
+    - python=3.6
+    - parcels=*.*
+    - mpi4py=*.* 
+    - mpich=*.* 
+    - scikit-learn=*.* 
+    - jupyter=*.* 
+    - cartopy=*.* 
+    - ffmpeg=*.* 

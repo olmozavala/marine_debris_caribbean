@@ -2,7 +2,7 @@ import datetime
 from os.path import join
 from proj_io.common_io import save_obj
 from config.MainConfig import get_config
-from config.params import globalmodel
+from config.params import GlobalModel, RegionalModel
 from proj_io.global_data_io import get_all_particles_per_month_and_region
 
 # This code is used to generate a new database that contains all the particles
@@ -12,8 +12,8 @@ from proj_io.global_data_io import get_all_particles_per_month_and_region
 if __name__ == "__main__":
     config = get_config()
 
-    output_folder = config[globalmodel.caribbean_from_global_folder]
-    bbox = config[globalmodel.bbox]
+    output_folder = config[GlobalModel.caribbean_from_global_folder]
+    bbox = config[RegionalModel.bbox]
     # Iterates over all the years of interest
     for c_year in range(2011, 2020):
         # Iterate over all the months for each year

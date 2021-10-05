@@ -1,5 +1,5 @@
 from config.MainConfig import get_config
-from config.params import globalmodel
+from config.params import GlobalModel
 import numpy as np
 from os.path import join
 import os
@@ -8,8 +8,8 @@ import xarray as xr
 config = get_config()
 part_per_release = 32300
 
-global_output_folder = config[globalmodel.global_debris_folder]
-bbox = config[globalmodel.bbox]
+global_output_folder = config[GlobalModel.global_debris_folder]
+bbox = config[GlobalModel.bbox]
 all_files = os.listdir(global_output_folder)
 all_files.sort()
 
