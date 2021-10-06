@@ -59,7 +59,7 @@ def runWithRestart(days_per_batch, config, start_date, end_date, winds, diffusio
         start_date = cur_end_date # We need to add one or we will repeat a day
         cur_end_date = min(start_date + timedelta(days=days_per_batch), end_date)
         # Define the restart file to use (previous output file)
-        restart_file = join(config[GlobalModel.output_folder], F"{get_file_name(name, prev_start_date, prev_end_date, part_n)}{config[GlobalModel.output_file]}")
+        restart_file = join(config[GlobalModel.output_folder], F"{get_file_name(name, prev_start_date, prev_end_date, part_n)}.nc")
 
         print(F" ================================================================================= ")
         print(F" ================================================================================= ")
@@ -82,8 +82,10 @@ if __name__ == "__main__":
     # Some run examples:
     # GlobalModel.py 2010-01-01:0 2010-03-11:0 True False False TEST 10 //Without restart
     # GlobalModel.py 2010-01-21:0 2010-01-31:0 True False False TEST /home/data/UN_Litter_data/output/TEST_2010-01-21_2010-01-31.nc 10  //With restart
+    # Parallel run examples with mpirun:
+    # mpirun -np 8 python GlobalModel.py 2010-01-01:0 2010-03-11:0 True False False TEST 10 //Without restart
     args = docopt(__doc__, version='OZ Example 0.1')
-    print(args)
+    # print(args)
     start_date = datetime.strptime(args['<start_date>'], "%Y-%m-%d:%H")
     end_date = datetime.strptime(args['<end_date>'], "%Y-%m-%d:%H")
     winds = bool(strtobool(args['<winds>']))

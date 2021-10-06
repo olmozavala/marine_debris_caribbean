@@ -118,6 +118,7 @@ def sequential(start_date, end_date, config, name='', winds=True, diffusion=True
     out_parc_file.export() # Save trajectories to file
 
     if MPI:
+        MPI.Get_
         print(F"----- Waiting for file to be saved proc {MPI.COMM_WORLD.Get_rank()} ... ---------", flush=True)
         MPI.COMM_WORLD.Barrier()
 
