@@ -92,8 +92,6 @@ def get_all_particles_per_month_and_region(year, month, bbox):
             print(F"Working with date {c_date_str}")
             idx = data.time == c_date
 
-            release_date = []
-            count_per_release = []
             idx_lat = np.logical_and(data.lat.data[idx] >= bbox[0], data.lat.data[idx] <= bbox[1])
             idx_lon = np.logical_and(data.lon.data[idx] >= bbox[2], data.lon.data[idx] <= bbox[3])
             idx_comb = np.logical_and(idx_lat, idx_lon)
@@ -138,7 +136,7 @@ def get_all_particles_per_month_in_caribbean_region(year, month):
     roi_polygon = roi.geometry[0]
 
     month_data = {}
-    # Iterate over the months that will provide data to the desired month
+    # Iterate over the months that will provide data to the desired date
     while c_month < last_month:
         print(F"============ {str(c_month)} ===============")
         data = get_single_release_data(c_month.astype(object).year, c_month.astype(object).month)
@@ -150,15 +148,13 @@ def get_all_particles_per_month_in_caribbean_region(year, month):
             print(F"Working with date {c_date_str}")
             idx = data.time == c_date
 
-            release_date = []
-            count_per_release = []
             idx_lat = np.logical_and(data.lat.data[idx] >= bbox[0], data.lat.data[idx] <= bbox[1])
             idx_lon = np.logical_and(data.lon.data[idx] >= bbox[2], data.lon.data[idx] <= bbox[3])
             idx_comb = np.logical_and(idx_lat, idx_lon)
             c_lats = data.lat.data[idx][idx_comb]
             c_lons = data.lon.data[idx][idx_comb]
             c_orig_pos = np.where(idx_comb)[0]
-            # Restrinct to specified domain
+            # Restric data to the specified Caribbean domain
             # c_locs = [Point(c_lons[i],c_lats[i]).intersects(roi_polygon) for i in range(len(c_lats))]
             c_locs = [roi_polygon.intersects(Point(c_lons[i],c_lats[i])) for i in range(len(c_lats))]
             f_lats = c_lats[c_locs]
