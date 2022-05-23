@@ -2,11 +2,11 @@ import gc
 from config.params import GlobalModel
 from os.path import join
 from datetime import timedelta
-from proj_utils.io_hycom import read_files
+from proj_utils_loc.io_hycom import read_files
 import functools
 import numpy as np
 from parcels import FieldSet, JITParticle, ScipyParticle, ParticleSet, ErrorCode, AdvectionRK4
-from proj_utils.io_hycom import add_Kh, add_unbeaching_field
+from proj_utils_loc.io_hycom import add_Kh, add_unbeaching_field
 from mykernels.custom_particles import LitterParticle
 from mykernels.wl_kernels import *
 import time
@@ -34,6 +34,7 @@ def sequential(start_date, end_date, config, name='', winds=True, diffusion=True
         raise Exception("ERROR: We couldn't read any file!")
 
     print("Reading initial positions.....")
+    if
     lat0 = functools.reduce(lambda a, b: np.concatenate((a,b), axis=0), [np.genfromtxt(join(release_loc_folder, x), delimiter='') for x in lat_files])
     lon0 = functools.reduce(lambda a, b: np.concatenate((a,b), axis=0), [np.genfromtxt(join(release_loc_folder, x), delimiter='') for x in lon_files])
 
@@ -77,6 +78,9 @@ def sequential(start_date, end_date, config, name='', winds=True, diffusion=True
         print(F"Using restart file {restart_file}")
         pset = ParticleSet.from_particlefile(fieldset=main_fieldset, pclass=particle_class,
                                              filename=restart_file, repeatdt=repeat_release)
+        t0 = T0
+        t1 = T1
+        pset += dynamic(t0,t1)
     else:
         pset = ParticleSet(fieldset=main_fieldset, pclass=particle_class, lon=lon0, lat=lat0,
                            repeatdt=repeat_release)
@@ -118,7 +122,6 @@ def sequential(start_date, end_date, config, name='', winds=True, diffusion=True
     out_parc_file.export() # Save trajectories to file
 
     if MPI:
-        MPI.Get_
         print(F"----- Waiting for file to be saved proc {MPI.COMM_WORLD.Get_rank()} ... ---------", flush=True)
         MPI.COMM_WORLD.Barrier()
 

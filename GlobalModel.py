@@ -21,7 +21,7 @@ import sys
 import os
 from models.GlobalModel import sequential
 from distutils.util import strtobool
-from proj_utils.several_utils import get_file_name, str2bool
+from proj_utils_loc.several_utils import get_file_name, str2bool
 # from models.models import sequential
 
 try:
@@ -82,8 +82,10 @@ if __name__ == "__main__":
     # Some run examples:
     # GlobalModel.py 2010-01-01:0 2010-03-11:0 True False False TEST 10 //Without restart
     # GlobalModel.py 2010-01-21:0 2010-01-31:0 True False False TEST /home/data/UN_Litter_data/output/TEST_2010-01-21_2010-01-31.nc 10  //With restart
+    # GlobalModel.py 2020-01-01:0 2020-02-01:0 True False False TEST /data/UN_Litter_data/output/TEN_YEARS/YesWinds_YesDiffusion_NoUnbeaching/TenYears_YesWinds_YesDiffusion_NoUnbeaching_2019_12.nc
     # Parallel run examples with mpirun:
     # mpirun -np 8 python GlobalModel.py 2010-01-01:0 2010-03-11:0 True False False TEST 10 //Without restart
+    # mpirun -np 8 python GlobalModel.py 2010-01-21:0 2010-01-31:0 True False False TEST /home/data/UN_Litter_data/output/TEST_2010-01-21_2010-01-31.nc 10  //With restart
     args = docopt(__doc__, version='OZ Example 0.1')
     # print(args)
     start_date = datetime.strptime(args['<start_date>'], "%Y-%m-%d:%H")
