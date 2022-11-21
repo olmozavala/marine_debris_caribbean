@@ -52,7 +52,7 @@ def read_data(c_data):
 
 def make_bar_plot(df, title, ax):
     show_n_countries = 10
-    # df = df.sort_values(ascending=False)
+    df = df.sort_values(by='Caribbean', ascending=False)
     df = df.head(show_n_countries)
     connected_countries = df.index
     tot_countries = len(connected_countries)
@@ -106,8 +106,9 @@ def make_plots(car_data, glob_data, output_folder, plot_type="Bar"):
 if __name__ == '__main__':
 
     # ---------------- Multiple years ---------------
-    car_folder = "/data/COAPS_Net/work/ozavala/CARIBBEAN_marine_debris/statistics/FromCaribbean/json/2021"
-    glob_folder = "/data/COAPS_Net/work/ozavala/CARIBBEAN_marine_debris/statistics/FromGlobal"
+    car_folder = "/data/COAPS_Net/work/ozavala/CARIBBEAN_marine_debris/statistics/Caribbean/json/2021"
+    # glob_folder = "/data/COAPS_Net/work/ozavala/CARIBBEAN_marine_debris/statistics/FromGlobal"
+    glob_folder = "/home/olmozavala/Dropbox/MyProjects/EOAS/COAPS/UN_Ocean_Litter/WorldLitter/data/reached_data_tables/Outputs/2021"
     output_folder = "/data/COAPS_Net/work/ozavala/CARIBBEAN_marine_debris/statistics/CaribbeanVsGlobal"
 
     car_input_file = join(car_folder, 'ReachedTablesData.json')
@@ -125,13 +126,14 @@ if __name__ == '__main__':
     if not os.path.exists(pdf_output_folder):
         os.makedirs(pdf_output_folder)
 
-    # make_plots(car_data, glob_data, imgs_output_folder)
+    make_plots(car_data, glob_data, imgs_output_folder)
     makePDF(imgs_output_folder)
 
     # Wait for the PDFs to be created.
     print("Waiting to create pdf....")
     time.sleep(10)
     input_file = join(imgs_output_folder,  F"ReachedTablesDataCaribbean.pdf")
-    shutil.copyfile(input_file , F"{join(pdf_output_folder, F'ReachedTablesData.pdf')}")
+    output_file = join(pdf_output_folder, F'Caribbean_vs_Global.pdf')
+    shutil.copyfile(input_file , F"{output_file}")
     print(F"Saved to {output_file}")
     print("Done!")

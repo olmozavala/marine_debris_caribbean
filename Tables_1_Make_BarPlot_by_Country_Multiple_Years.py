@@ -300,7 +300,7 @@ if __name__ == "__main__":
 
     # ---------------- Multiple years ---------------
     years = range(2017, 2022)
-    root_folder = "/data/COAPS_Net/work/ozavala/CARIBBEAN_marine_debris/statistics/FromCaribbean/"
+    root_folder = "/data/COAPS_Net/work/ozavala/CARIBBEAN_marine_debris/statistics/Caribbean/"
     input_folder = join(root_folder, "json")
     output_folder = join(root_folder, "imgs_bars")
     pdf_output_folder = join(root_folder, "pdf")
@@ -320,5 +320,5 @@ if __name__ == "__main__":
     print("Waiting 10 sec to generate pdf....")
     time.sleep(10)
 
-    subprocess.run(F"mv '{join(output_folder,'ReachedTablesDataCaribbean.pdf')}' '{join(pdf_output_folder,'MultiYearBarPlots.pdf')}'")
+    shutil.copyfile(join(output_folder,'ReachedTablesDataCaribbean.pdf'),join(pdf_output_folder,'MultiYearBarPlots.pdf'))
     print("Done!")

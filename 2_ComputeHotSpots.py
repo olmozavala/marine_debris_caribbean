@@ -29,8 +29,8 @@ def make_plot(LONS, LATS, data, title, file_name):
     cs = ax.contourf(LONS, LATS, data, levels=np.append([10**i for i in range(3)], [200000]), transform=ccrs.PlateCarree(), cmap=cmo.thermal, norm=norm)
     fig.colorbar(cs, shrink=.3)
     # cax.set_title(title)
-    plt.savefig(file_name, bbox_inches='tight')
-    # plt.show()
+    # plt.savefig(file_name, bbox_inches='tight')
+    plt.show()
     plt.close()
 
 
@@ -100,7 +100,7 @@ def make_hist(input_folder, output_folder, input_file, grid_resolution, tot_proc
 
     make_plot(LONS, LATS, acum_histo, F"Acumulated  {input_file}", join(output_imgs_folder, F"{input_file.replace('.nc','')}_Accumulated.png"))
     # os.system(F"gdal_translate -a_srs EPSG:4326 NETCDF:{output_file}.nc:histo {output_file_tiff}")
-    os.system(F"gdal_translate  NETCDF:{output_file}.nc:histo {output_file_tiff}")
+    # os.system(F"gdal_translate  NETCDF:{output_file}.nc:histo {output_file_tiff}")
 
 
 def parallelSum(lats, lons, LATS, LONS, id_proc, tot_proc):
@@ -234,12 +234,12 @@ if __name__ == "__main__":
     end_year = 22
     # =========================== Makes histogram =====================
     # # This part is to generate (in a loop) CF-netcdf files of the accumulated locations.
-    # bbox = (-98.5, -51.6, 3.9, 31)
-    # for y in range(start_year, end_year):
-    #     for m in range(10, 13):
-    #         # I modify it so that it takes the names from heere NOT from the config file
-    #         file_name = F"cm_uniform_20{y:02d}-{m:02d}-01.nc"
-    #         make_hist(input_folder, output_folder, file_name, grid_resolution, tot_proc, bbox)
+    bbox = (-98.5, -51.6, 3.9, 31)
+    for y in range(start_year, end_year):
+        for m in range(10, 13):
+            # I modify it so that it takes the names from heere NOT from the config file
+            file_name = F"cm_uniform_20{y:02d}-{m:02d}-01.nc"
+            make_hist(input_folder, output_folder, file_name, grid_resolution, tot_proc, bbox)
 
     # =========================== Merges histograms =====================
     start_year = 10
